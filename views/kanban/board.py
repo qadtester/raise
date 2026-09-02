@@ -78,10 +78,25 @@ def render_kanban_board(project_id: str, *args, **kwargs):
         )
 
     # 5. Obter e Filtrar Cards
-    cards = get_kanban_cards(project_id)
+    raw_cards = get_kanban_cards(project_id)
+
+    # DESDUPLICAÇÃO: Garante que cada card_id apareça apenas 1 vez para evitar erro de Duplicate Element Key
+    unique_cards_map = {}
+    for card in raw_cards:
+        if card.get("id"):
+            unique_cards_map[card["id"]] = card
+    cards = list(unique_cards_map.values())
+
+    # Mapeia colunas existentes para tratar status incompatíveis ou nulos
+    valid_column_names = [col["name"] for col in columns_data]
+    default_col_name = valid_column_names[0] if valid_column_names else "A Fazer"
 
     filtered_cards = []
     for c in cards:
+        # Se o status do card não existe entre as colunas, atribui temporariamente à primeira coluna
+        if c.get("status") not in valid_column_names:
+            c["status"] = default_col_name
+
         if filter_sev and c.get("severity") not in filter_sev:
             continue
         c_assignee_name = (
@@ -113,6 +128,7 @@ def render_kanban_board(project_id: str, *args, **kwargs):
     ui_cols = st.columns(len(columns_data)) if columns_data else []
 
     for idx, col_info in enumerate(columns_data):
+        col_id = col_info["id"]
         col_name = col_info["name"]
         col_cards = [card for card in filtered_cards if card.get("status") == col_name]
 
@@ -121,6 +137,7 @@ def render_kanban_board(project_id: str, *args, **kwargs):
             st.markdown("---")
 
             for card in col_cards:
+                card_id = card["id"]
                 badge = get_severity_badge(card.get("severity", "Baixa"))
                 assigned_name = (
                     card.get("users", {}).get("name")
@@ -143,11 +160,11 @@ def render_kanban_board(project_id: str, *args, **kwargs):
                             new_col = st.selectbox(
                                 "Mover para:",
                                 col_names,
-                                index=col_names.index(col_name),
-                                key=f"mov_{card['id']}",
+                                index=col_names.index(col_name) if col_name in col_names else 0,
+                                key=f"mov_{col_id}_{card_id}",
                             )
                             if new_col != col_name:
-                                update_card_status(card["id"], new_col)
+                                update_card_status(card_id, new_col)
                                 st.rerun()
 
                             cur_assignee_key = next(
@@ -162,7 +179,7 @@ def render_kanban_board(project_id: str, *args, **kwargs):
                                 "Reatribuir a:",
                                 list(member_options.keys()),
                                 index=list(member_options.keys()).index(cur_assignee_key),
-                                key=f"assign_{card['id']}",
+                                key=f"assign_{col_id}_{card_id}",
                             )
 
                             if member_options[new_assignee_key] != card.get("assignee_id"):
@@ -183,7 +200,7 @@ def render_kanban_board(project_id: str, *args, **kwargs):
 
                     with tab_edit:
                         if can_edit(user_info):
-                            with st.form(key=f"form_edit_card_{card['id']}"):
+                            with st.form(key=f"form_edit_card_{col_id}_{card_id}"):
                                 e_title = st.text_input("Título", value=card.get("title", ""))
                                 e_desc = st.text_area("Descrição", value=card.get("description", ""))
                                 e_sev = st.selectbox(
@@ -195,7 +212,7 @@ def render_kanban_board(project_id: str, *args, **kwargs):
                                 )
 
                                 if st.form_submit_button("Salvar Edição"):
-                                    update_card_details(card["id"], e_title, e_desc, e_sev)
+                                    update_card_details(card_id, e_title, e_desc, e_sev)
                                     st.success("Card atualizado!")
                                     st.rerun()
 
@@ -210,9 +227,9 @@ def render_kanban_board(project_id: str, *args, **kwargs):
                             st.caption("Nenhum comentário.")
 
                         new_comment_text = st.text_area(
-                            "Adicionar comentário:", key=f"comm_input_{card['id']}"
+                            "Adicionar comentário:", key=f"comm_input_{col_id}_{card_id}"
                         )
-                        if st.button("Enviar Comentário", key=f"btn_comm_{card['id']}"):
+                        if st.button("Enviar Comentário", key=f"btn_comm_{col_id}_{card_id}"):
                             if new_comment_text.strip():
                                 author_name = user_info.get("name", "Usuário")
                                 add_comment(card, author_name, new_comment_text)
@@ -233,7 +250,7 @@ def render_kanban_board(project_id: str, *args, **kwargs):
                                 with col_att1:
                                     st.markdown(f"📄 [{att.get('name', 'Arquivo')}]({att.get('url')})")
                                 with col_att2:
-                                    if can_edit(user_info) and st.button("❌", key=f"del_att_{card['id']}_{idx_att}"):
+                                    if can_edit(user_info) and st.button("❌", key=f"del_att_{col_id}_{card_id}_{idx_att}"):
                                         remove_attachment_from_card(card, idx_att)
                                         st.success("Anexo removido!")
                                         st.rerun()
@@ -241,9 +258,9 @@ def render_kanban_board(project_id: str, *args, **kwargs):
                         st.caption("Nenhum anexo.")
 
                     if can_edit(user_info):
-                        with st.form(key=f"form_att_{card['id']}", clear_on_submit=True):
+                        with st.form(key=f"form_att_{col_id}_{card_id}", clear_on_submit=True):
                             up_file = st.file_uploader(
-                                "Selecionar arquivo (máx. 10 MB)", key=f"file_{card['id']}"
+                                "Selecionar arquivo (máx. 10 MB)", key=f"file_{col_id}_{card_id}"
                             )
                             sub_att = st.form_submit_button("📤 Salvar Anexo")
 
@@ -264,7 +281,7 @@ def render_kanban_board(project_id: str, *args, **kwargs):
 
                     # Exclusão Restrita do Card
                     if can_delete_items(user_info):
-                        if st.button("🗑️ Excluir Card", key=f"del_card_{card['id']}", type="secondary"):
+                        if st.button("🗑️ Excluir Card", key=f"del_card_{col_id}_{card_id}", type="secondary"):
                             delete_card_with_attachments(card)
                             st.success("Card e seus anexos foram excluídos!")
                             st.rerun()
