@@ -1,0 +1,58 @@
+================================================================================
+LICENÇA PROPRIETÁRIA E CONFIDENCIAL DE SOFTWARE
+PROPRIETARY AND CONFIDENTIAL SOFTWARE LICENSE
+================================================================================
+
+COPYRIGHT (C) 2026 qadtester / diegovalter. 
+TODOS OS DIREITOS RESERVADOS. / ALL RIGHTS RESERVED.
+
+--------------------------------------------------------------------------------
+PORTUGUÊS (ORIGINAL / VERSÃO VIGENTE)
+--------------------------------------------------------------------------------
+
+1. PROPRIEDADE INTELECTUAL E ESCOPO
+O software "RAISE" (incluindo suas iterações prévias, sua versão monolítica consolidada e suas versões desacopladas Full Stack v1 e v2), abrangendo código-fonte, arquitetura de software, lógica de negócios, regras de conformidade ISTQB, interfaces visuais, componentes do Quadro Kanban, serviços de integração, prompts de sistema para inteligência artificial, esquemas relacionais de banco de dados, documentação técnica e artefatos associados ("Software"), é de propriedade intelectual exclusiva e confidencial de seu autor/detentor original, identificado nos registros de versionamento sob as contas técnicas qadtester e [SEU_NOVO_USUARIO_GITHUB].
+
+2. RESTRIÇÕES DE USO, CÓPIA E DISTRIBUIÇÃO
+É expressamente PROIBIDO a qualquer indivíduo, empresa ou entidade, sem autorização prévia, expressa e formal por escrito do titular dos direitos:
+a) Copiar, clonar, reproduzir, duplicar ou redistribuir este Software ou qualquer uma de suas partes, no todo ou em modificação;
+b) Utilizar o Software, seu código-fonte ou obras derivadas para fins comerciais, prestação de serviços a terceiros ou disponibilização como Software como Serviço (SaaS);
+c) Criar obras derivadas, adaptar, traduzir, descompilar, realizar engenharia reversa ou tentar extrair a lógica subjacente do Software;
+d) Sublicenciar, alugar, vender, transferir ou ceder a qualquer título os direitos sobre o Software;
+e) Utilizar o código-fonte, arquitetura, documentação ou prompts para treinamento, ajuste fino (fine-tuning) ou alimentação de modelos de inteligência artificial ou agentes autônomos sem permissão prévia por escrito.
+
+A eventual disponibilização do código-fonte em repositórios remotos de controle de versão (como GitHub) possui finalidade estritamente documental, comprobatória de anterioridade técnica e demonstração de portfólio, NÃO constituindo renúncia a direitos patrimoniais, nem outorga de licença pública de uso, modificação ou redistribuição.
+
+3. EXCLUSÃO EXPRESSA DE COMPONENTES E BIBLIOTECAS DE TERCEIROS (OPEN SOURCE)
+Fica expressamente esclarecido que os termos desta licença proprietária NÃO se aplicam às bibliotecas, frameworks, pacotes, utilitários e dependências de terceiros de código aberto (Open Source) utilizados ou referenciados pelo projeto (tais como, exemplificativamente: Python, Streamlit, Supabase Client, Pandas, Plotly, Tabulate, Groq SDK, Google Generative AI SDK, OpenAI SDK, PyPDF, python-docx, python-dotenv, entre outros).
+
+Tais componentes de terceiros permanecem integralmente regidos e protegidos por suas respectivas licenças de software livre e de código aberto originais (tais como licenças MIT, Apache 2.0, BSD e compatíveis), as quais são reconhecidas e respeitadas em sua totalidade, permanecendo o seu uso livre dentro dos limites estipulados por seus legítimos detentores.
+
+4. ISENÇÃO DE GARANTIAS
+O Software é disponibilizado "NO ESTADO EM QUE SE ENCONTRA" ("AS IS"), sem qualquer tipo de garantia, expressa ou implícita, incluindo garantias de comercialização, adequação a uma finalidade específica ou não violação. Em nenhuma circunstância o titular será responsável por quaisquer danos diretos, indiretos, incidentais ou consequenciais decorrentes da visualização ou do uso não autorizado deste Software.
+
+
+--------------------------------------------------------------------------------
+ENGLISH (CONVENIENCE TRANSLATION)
+--------------------------------------------------------------------------------
+
+1. INTELLECTUAL PROPERTY AND SCOPE
+The software "RAISE" (including its prior iterations, its consolidated monolithic version, and its decoupled Full Stack versions v1 and v2), encompassing source code, software architecture, business logic, ISTQB compliance rules, visual interfaces, Kanban Board components, integration services, system prompts for artificial intelligence, relational database schemas, technical documentation, and associated artifacts ("Software"), is the exclusive and confidential intellectual property of its original author/rights holder, identified in the version control history under the technical accounts qadtester and [SEU_NOVO_USUARIO_GITHUB].
+
+2. RESTRICTIONS ON USE, COPYING, AND DISTRIBUTION
+It is expressly PROHIBITED for any individual, company, or entity, without prior, express, and formal written authorization from the rights holder, to:
+a) Copy, clone, reproduce, duplicate, or redistribute this Software or any part thereof, in whole or as modified;
+b) Use the Software, its source code, or derivative works for commercial purposes, service bureau operations, or as a Software as a Service (SaaS) offering;
+c) Create derivative works, adapt, translate, decompile, reverse engineer, or attempt to extract the underlying logic of the Software;
+d) Sublicense, rent, sell, transfer, or assign any rights in the Software under any legal title;
+e) Use the source code, architecture, documentation, or prompts to train, fine-tune, or feed artificial intelligence models or autonomous agents without prior written permission.
+
+The public availability of the source code in remote version control repositories (such as GitHub) is solely for documentary, prior-art verification, and technical portfolio demonstration purposes. It does NOT constitute a waiver of economic rights, nor does it grant any public license for use, modification, or redistribution.
+
+3. EXPRESS EXCLUSION OF THIRD-PARTY OPEN-SOURCE COMPONENTS
+It is expressly clarified that the terms of this proprietary license DO NOT apply to third-party open-source libraries, frameworks, packages, utilities, and dependencies used or referenced by the project (including, without limitation: Python, Streamlit, Supabase Client, Pandas, Plotly, Tabulate, Groq SDK, Google Generative AI SDK, OpenAI SDK, PyPDF, python-docx, python-dotenv, among others).
+
+Such third-party components remain governed and protected under their respective original open-source software licenses (such as MIT, Apache 2.0, BSD, and compatible licenses), which are acknowledged and respected in their entirety, remaining subject to the terms set forth by their rightful copyright holders.
+
+4. DISCLAIMER OF WARRANTIES
+The Software is provided "AS IS", without warranty of any kind, express or implied, including warranties of merchantability, fitness for a particular purpose, or non-infringement. In no event shall the rights holder be liable for any direct, indirect, incidental, or consequential damages arising from the inspection or unauthorized use of this Software.
